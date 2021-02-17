@@ -96,7 +96,9 @@ namespace tc_colors
 		color_biome_jungle = 0xff327800,
 		color_biome_arctic = 0xff64b4ff,
 		color_biome_desert = 0xffffd364,
-		color_biome_dead = 0xff736e64
+		color_biome_dead = 0xff736e64,
+
+		color_plastic = 0xff112e30
 	};
 }
 
@@ -556,6 +558,11 @@ class TCPNGLoader : PNGLoader
 			case tc_colors::color_damaged_glass_bg:
 			{
 				map.SetTile(offset, CMap::tile_bglass_d0);
+				break;
+			}
+			case tc_colors::color_plastic:
+			{
+				map.SetTile(offset, CMap::tile_plastic_d0);
 				break;
 			}
 		};
@@ -1752,6 +1759,18 @@ void onSetTile(CMap@ map, u32 index, TileType tile_new, TileType tile_old)
 					if(isClient()) OnSnowTileHit(map, index);
 				}
 				map.SetTileSupport(index, 0);
+				map.AddTileFlag(index, Tile::LIGHT_SOURCE | Tile::LIGHT_PASSES | Tile::WATER_PASSES);
+				map.RemoveTileFlag(index, Tile::SOLID | Tile::COLLISION);
+				break;
+			
+			case CMap::tile_plastic_d0:
+				map.AddTileFlag(index, Tile::SOLID | Tile::COLLISION);
+				map.RemoveTileFlag(index, Tile::LIGHT_PASSES | Tile::LIGHT_SOURCE | Tile::WATER_PASSES);
+			case CMap::tile_plastic_d1:
+			case CMap::tile_plastic_d2:
+			case CMap::tile_plastic_d3:
+			case CMap::tile_plastic_d4:
+			case CMap::tile_plastic_d5:
 				map.AddTileFlag(index, Tile::LIGHT_SOURCE | Tile::LIGHT_PASSES | Tile::WATER_PASSES);
 				map.RemoveTileFlag(index, Tile::SOLID | Tile::COLLISION);
 				break;

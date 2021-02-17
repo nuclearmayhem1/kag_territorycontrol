@@ -255,7 +255,14 @@ namespace CMap
 		tile_snow_pile_v2,
 		tile_snow_pile_v3,
 		tile_snow_pile_v4,
-		tile_snow_pile_v5
+		tile_snow_pile_v5,
+
+		tile_plastic_d0 = 736,
+		tile_plastic_d1,
+		tile_plastic_d2,
+		tile_plastic_d3,
+		tile_plastic_d4,
+		tile_plastic_d5
 	};
 };
 
@@ -314,6 +321,10 @@ bool isTileSnowPile(TileType tile)
 	return tile >= CMap::tile_snow_pile && tile <= CMap::tile_snow_pile_v5;
 }
 
+bool isTilePlastic(TileType tile)
+{
+	return tile >= CMap::tile_plastic_d0 && tile <= CMap::tile_plastic_d5;
+}
 void onInit(CMap@ this)
 {
     this.legacyTileMinimap = false;

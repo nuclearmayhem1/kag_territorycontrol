@@ -10,21 +10,24 @@ const string[] matNames = {
 	"mat_copper",
 	"mat_iron",
 	"mat_gold",
-	"mat_ironingot"
+	"mat_ironingot",
+	"mat_oil"
 };
 
 const string[] matNamesResult = { 
 	"mat_copperingot",
 	"mat_ironingot",
 	"mat_goldingot",
-	"mat_steelingot"
+	"mat_steelingot",
+	"mat_plastic"
 };
 
 const int[] matRatio = { 
 	10,
 	10,
 	25,
-	4
+	4,
+	10
 };
 
 void onInit(CBlob@ this)
@@ -49,14 +52,21 @@ void onInit(CBlob@ this)
 void onTick(CBlob@ this)
 {
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		if (this.hasBlob(matNames[i], matRatio[i]))
 		{
 			if (isServer())
 			{
 				CBlob @mat = server_CreateBlob(matNamesResult[i], -1, this.getPosition());
-				mat.server_SetQuantity(4);
+				if (matNamesResult[i] == "mat_plastic")
+				{
+					mat.server_SetQuantity(20);
+				}
+				else
+				{
+					mat.server_SetQuantity(4);
+				}
 				mat.Tag("justmade");
 				this.TakeBlob(matNames[i], matRatio[i]);
 				
@@ -78,7 +88,7 @@ void onCollision(CBlob@ this, CBlob@ blob, bool solid)
 		return;
 	}
 	
-	for(int i = 0;i < 4; i += 1)
+	for(int i = 0;i < 5; i += 1)
 	if (!blob.isAttached() && blob.hasTag("material") && blob.getName() == matNames[i])
 	{
 		if (isServer()) this.server_PutInInventory(blob);
