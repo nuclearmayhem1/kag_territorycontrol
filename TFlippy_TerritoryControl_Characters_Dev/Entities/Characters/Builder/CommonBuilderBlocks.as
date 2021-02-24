@@ -127,8 +127,6 @@ void addCommonBuilderBlocks(BuildBlock[][]@ blocks)
 	AddIconToken("$icon_smallsign$","sign.png",Vec2f(16, 16),0);
 	// AddIconToken("$icon_cargocontainer$", "CargoContainer.png", Vec2f(64, 24), 0);
 
-	AddIconToken("$plastic_block$", "World.png", Vec2f(8, 8), CMap::tile_plastic_d0);
-	AddIconToken("$electrical_workshop$","ElectricalWorkshop.png",Vec2f(40, 24),0);
 	
 	BuildBlock[] page_0;
 	blocks.push_back(page_0);
@@ -285,12 +283,6 @@ void addCommonBuilderBlocks(BuildBlock[][]@ blocks)
 		AddRequirement(b.reqs, "blob", "mat_ironingot", "Iron Ingots", 3);
 		blocks[0].push_back(b);
 	}
-	{
-		BuildBlock b(0, "plastic_block", "$plastic_block$", "A plastic block.");
-		AddRequirement(b.reqs, "blob", "mat_plastic", "Plastic", 5);
-		blocks[0].push_back(b);
-	}
-	
 	
 	// {
 		// BuildBlock b(CMap::tile_tnt, "tnt_block", "$tnt_block$", "Explosives\nSet off by other explosions and fire.");
@@ -426,15 +418,6 @@ void addCommonBuilderBlocks(BuildBlock[][]@ blocks)
 		AddRequirement(b.reqs, "blob", "mat_dirt", "Dirt", 50);
 		b.buildOnGround = true;
 		b.size.Set(40, 32);
-		blocks[1].push_back(b);
-	}
-	{
-		BuildBlock b(0, "electricalworkshop", "$electrical_workshop$", "Electrician's workshop\nBuilds various electrical devices");
-		AddRequirement(b.reqs, "blob", "mat_stone", "Stone", 70);
-		AddRequirement(b.reqs, "blob", "mat_wood", "Wood", 150);
-		AddRequirement(b.reqs, "blob", "mat_copperwire", "Copper Wire", 10);
-		b.buildOnGround = true;
-		b.size.Set(40, 24);
 		blocks[1].push_back(b);
 	}
 
@@ -622,7 +605,6 @@ void addCommonBuilderBlocks(BuildBlock[][]@ blocks)
 		b.size.Set(24, 24);
 		blocks[2].push_back(b);
 	}
-	
 		
 		
 	BuildBlock[] page_3;
