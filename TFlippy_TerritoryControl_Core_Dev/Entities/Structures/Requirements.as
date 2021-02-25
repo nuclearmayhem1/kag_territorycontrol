@@ -66,6 +66,11 @@ string getButtonRequirementsText(CBitStream& inout bs,bool missing)
 			text += quantity;
 			text += " $COIN$ required\n";
 		}
+		else if(requiredType=="influence")
+		{
+			text += quantity;
+			text += " Influence required\n";
+		}
 		else if(requiredType=="no more" && missing)
 		{
 			text += quantityColor;
@@ -237,6 +242,17 @@ bool hasRequirements(CInventory@ inv1,CInventory@ inv2,CBitStream &inout bs,CBit
 			CPlayer@ player2=	inv2 !is null ? inv2.getBlob().getPlayer() : null;
 			u16 sum=			(player1 !is null ? player1.getCoins() : 0)+(player2 !is null ? player2.getCoins() : 0);
 			if(sum<quantity) 
+			{
+				AddRequirement(missingBs,req,blobName,friendlyName,quantity);
+				has=false;
+			}
+		}
+		else if(req=="influence") 
+		{
+			CPlayer@ player1=	inv1 !is null ? inv1.getBlob().getPlayer() : null;
+			TeamData@ team_data;
+			GetTeamData(player1.getTeamNum(), @team_data);
+			if(team_data.influence<quantity) 
 			{
 				AddRequirement(missingBs,req,blobName,friendlyName,quantity);
 				has=false;
@@ -443,6 +459,13 @@ void server_TakeRequirements(CInventory@ inv1,CInventory@ inv2,CBitStream &inout
 				taken=Maths::Min(player2.getCoins(), quantity);
 				player2.server_setCoins(player2.getCoins() - taken);
 			}
+		}
+		else if(req=="influence")
+		{
+			CPlayer@ player1=	inv1 !is null ? inv1.getBlob().getPlayer() : null;
+			TeamData@ team_data;
+			GetTeamData(player1.getTeamNum(), @team_data);
+			team_data.influence -= quantity;
 		}
 	}
 

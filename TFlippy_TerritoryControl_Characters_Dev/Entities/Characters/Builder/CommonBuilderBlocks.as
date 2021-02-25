@@ -420,6 +420,14 @@ void addCommonBuilderBlocks(BuildBlock[][]@ blocks)
 		b.size.Set(40, 32);
 		blocks[1].push_back(b);
 	}
+	{
+		BuildBlock b(0, "influenceshop", "$tinkertable$", "Mechanist's Workshop\nA place where you can construct various trinkets and advanced machinery. Repairs adjacent vehicles.");
+		AddRequirement(b.reqs, "blob", "mat_stone", "Stone", 70);
+		AddRequirement(b.reqs, "blob", "mat_wood", "Wood", 150);
+		b.buildOnGround = true;
+		b.size.Set(40, 24);
+		blocks[1].push_back(b);
+	}
 
 	
 	BuildBlock[] page_2;

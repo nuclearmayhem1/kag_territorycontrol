@@ -51,6 +51,7 @@ shared class TeamData
 	u16 upkeep_cap;
 	u32 wealth;
 	u16 controlled_count;
+	u64 influence;
 	
 	string leader_name;
 	
@@ -72,6 +73,7 @@ shared class TeamData
 		upkeep_cap = 10;
 		wealth = 0;
 		controlled_count = 0;
+		influence = 0;
 		
 		leader_name = "";
 		recruitment_enabled = true;
